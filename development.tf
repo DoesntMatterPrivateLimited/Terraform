@@ -16,14 +16,32 @@ module "Myvpc" {
   availability_zones   = local.production_availability_zones
 
 }
-module "zomato" {
-  source        = "./module/ec2"
-  ami           = var.ami
-  instance_type = var.instance_type
-  key_name      = var.key_name
-  subnet_id     = module.Myvpc.public_subnets_id[0]
+# module "zomato" {
+#   source                     = "./module/ec2"
+#   ami                        = var.ami
+#   instance_type              = var.instance_type
+#   key_name                   = var.key_name
+#   subnet_id                  = module.Myvpc.public_subnets_id[0]
+#   default_security_group_ids = module.Myvpc.default_security_group_ids
+# }
+
+module "eks_cluster" {
+  source          = "./module/eks"
+
+  cluster_name    = "my-eks-cluster"
+
+  
+
+  subnet_ids      = module.Myvpc.public_subnets_id[0]
+
   default_security_group_ids = module.Myvpc.default_security_group_ids
 
+  instance_type   = var.instance_type  # Adjust instance type as per your requirements
 
+  desired_capacity = 2
+
+  min_size         = 1
+
+  max_size         = 3
 }
 

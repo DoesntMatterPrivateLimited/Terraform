@@ -20,7 +20,7 @@ variable "cidr_block" {
 variable "public_subnets_cidr" {
   type        = list(any)
   description = "CIDR block for Public Subnet"
-  default     = ["20.0.1.0/24"]
+  default     = ["20.0.1.0/24", "20.0.2.0/24"]
 }
 
 variable "private_subnets_cidr" {
@@ -31,7 +31,8 @@ variable "private_subnets_cidr" {
 
 variable "instance_type" {
   description = "This is a instance type"
-  default     = "t2.micro"
+  default = "t2.micro"
+  
 
 }
 
