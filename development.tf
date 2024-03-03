@@ -45,3 +45,14 @@ module "eks_cluster" {
   max_size         = 3
 }
 
+module "ecr-repo" {
+    source               = "./modules/ecr"
+    environment          = var.environment
+    project              = var.project 
+    ecr_name             = var.ecr_name
+    tags                 = var.tags
+    image_tag_mutability = var.image_mutability
+
+  
+}
+
